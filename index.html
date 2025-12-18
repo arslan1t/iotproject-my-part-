@@ -10,6 +10,23 @@
 </head>
 
 <body>
+  <svg style="display:none">
+  <symbol id="icon-sound" viewBox="0 0 24 24">
+    <path d="M3 10v4h4l5 4V6L7 10H3z" fill="currentColor"/>
+    <path d="M16 7c1.5 1.5 1.5 8 0 10" stroke="currentColor" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-pressure" viewBox="0 0 24 24">
+    <path d="M4 20h16M6 16l4-6 4 4 4-8" stroke="currentColor" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-warning" viewBox="0 0 24 24">
+    <path d="M12 3l9 16H3z" stroke="currentColor" stroke-width="2" fill="none"/>
+    <circle cx="12" cy="16" r="1" fill="currentColor"/>
+    <path d="M12 9v4" stroke="currentColor" stroke-width="2"/>
+  </symbol>
+</svg>
+
   <div class="container">
 
     <!-- HERO -->
@@ -41,7 +58,11 @@
     <div class="grid grid-2">
 
       <div class="card">
-        <h2>Pressure Sensor Integration (HX711)</h2>
+        <h2>
+  <svg class="icon"><use href="#icon-pressure"/></svg>
+  Pressure Sensor Integration (HX711)
+</h2>
+
         <ul>
           <li>Integrated HX711 load cell amplifier with foot pressure sensor</li>
           <li>Real-time pressure sampling and processing</li>
@@ -127,5 +148,18 @@
     </div>
 
   </div>
+  <div class="graph">
+  <svg viewBox="0 0 300 120">
+    <polyline
+      points="0,80 40,78 80,82 120,60 160,40 200,30 240,20 300,10"
+      fill="none"
+      stroke="#3b82f6"
+      stroke-width="3"/>
+    <line x1="0" y1="60" x2="300" y2="60"
+          stroke="#ef4444" stroke-dasharray="4"/>
+  </svg>
+  <span class="graph-label">Pressure threshold</span>
+</div>
+
 </body>
 </html>
