@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SlipGuard — Sound & Pressure Safety Module</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- HERO -->
+    <div>
+      <span class="badge">Safety Module</span>
+      <span class="badge">HX711</span>
+      <span class="badge">Non-blocking audio</span>
+
+      <h1>Sound & Pressure Safety Module</h1>
+      <p>
+        This website presents <span class="highlight">my personal contribution</span> to the Smart Blind Shoes project:
+        a pressure-based slip detection system with real-time sound feedback.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- OVERVIEW -->
+    <div class="card">
+      <h2>Project Overview</h2>
+      <p>
+        The Smart Blind Shoes project aims to improve user safety through assistive feedback.
+        While the full system includes navigation and emergency features, this page focuses
+        exclusively on my <span class="highlight">safety-critical module</span>.
+      </p>
+    </div>
+
+    <!-- MY CONTRIBUTION -->
+    <div class="grid grid-2">
+
+      <div class="card">
+        <h2>Pressure Sensor Integration (HX711)</h2>
+        <ul>
+          <li>Integrated HX711 load cell amplifier with foot pressure sensor</li>
+          <li>Real-time pressure sampling and processing</li>
+          <li>Prepared for calibration and scaling in real hardware</li>
+          <li>Pressure used as an indicator of ground contact stability</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Slip Detection Logic</h2>
+        <ul>
+          <li>Detection of sudden pressure drops</li>
+          <li>Minimum pressure threshold monitoring</li>
+          <li>Timeout-based loss of stable contact detection</li>
+          <li>Designed as a safety-triggering algorithm</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Sound Feedback System</h2>
+        <ul>
+          <li>Distinct sound patterns for different events</li>
+          <li>Slip alert: clear and recognizable audio signal</li>
+          <li>Emergency alarm with low-frequency rhythm</li>
+          <li>Audio feedback designed for instant user awareness</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Non-Blocking Audio Logic</h2>
+        <ul>
+          <li>No delay() usage in sound generation</li>
+          <li>millis()-based scheduling</li>
+          <li>Ensures continuous sensor reading and system responsiveness</li>
+          <li>Supports simultaneous sensing and feedback</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Pressure Data Visualization</h2>
+        <ul>
+          <li>Real-time pressure graphs using Serial Plotter</li>
+          <li>Threshold line visualization</li>
+          <li>Slip events shown as clear spikes</li>
+          <li>Used for validation and debugging</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Why a Separate Demo Project?</h2>
+        <p>
+          The full system uses many peripherals (ultrasonic sensors, LCD, RGB, GPS, vibration motors).
+          In Wokwi and on Arduino Uno, this leads to <span class="highlight">pin and timing limitations</span>.
+        </p>
+        <p>
+          To ensure accurate HX711 sampling, clean graphs, and stable non-blocking audio behavior,
+          I demonstrate my module as a <span class="highlight">standalone project</span>.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- DEMO -->
+    <div class="divider"></div>
+
+    <div class="card">
+      <h2>Live Demonstration</h2>
+      <ul>
+        <li>Run Wokwi simulation</li>
+        <li>Open Serial Plotter</li>
+        <li>Show pressure signal, threshold, and slip spike</li>
+        <li>Trigger slip → observe audio alert</li>
+      </ul>
+
+      <p>
+        <span class="highlight">Wokwi link:</span><br />
+        <code>https://wokwi.com/projects/PASTE-YOUR-ID</code>
+      </p>
+    </div>
+
+    <div class="footer">
+      Defense website • Personal contribution only • HX711 Safety Module
+    </div>
+
+  </div>
+</body>
+</html>
