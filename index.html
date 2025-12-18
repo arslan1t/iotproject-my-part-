@@ -30,57 +30,42 @@
     <div class="divider"></div>
 
     <!-- OVERVIEW -->
-    <div class="card">
-      <h2>Project Overview</h2>
-      <p>
-        The Smart Blind Shoes project aims to improve user safety through assistive feedback.
-        While the full system includes navigation and emergency features, this page focuses
-        exclusively on my <span class="highlight">safety-critical module</span>.
-      </p>
-    </div>
-
-    <div class="card">
-      <h2>Module Images</h2>
-      <div class="media-grid">
-        <figure class="media">
-          <img
-            src="hx711.png"
-            width="629"
-            height="629"
-            loading="lazy"
-            alt="HX711 load cell amplifier module"
-          />
-          <figcaption>HX711 load cell amplifier</figcaption>
-        </figure>
-
-        <figure class="media">
-          <img
-            src="slip-detection.png"
-            width="1024"
-            height="1536"
-            loading="lazy"
-            alt="Slip detection logic diagram"
-          />
-          <figcaption>Slip detection logic</figcaption>
-        </figure>
-
-        <figure class="media">
-          <img
-            src="sound-waves.svg"
-            width="1200"
-            height="450"
-            loading="lazy"
-            alt="Sound feedback represented as waves"
-          />
-          <figcaption>Sound feedback patterns</figcaption>
-        </figure>
+    <section class="card overview" id="system-overview">
+      <div class="overview-text">
+        <h2>System Overview</h2>
+        <p>
+          The Smart Blind Shoes project aims to improve user safety through assistive feedback.
+          This page presents only my <span class="highlight">safety-critical module</span>:
+          HX711 pressure sensing + slip detection + non-blocking sound alerts.
+        </p>
+        <p>
+          Hardware: HX711 + foot pressure sensor, buzzer, and an emergency push button.
+          Output is visualized via Serial Plotter for clear validation during the demo.
+        </p>
       </div>
-    </div>
+      <figure class="overview-media">
+        <img
+          src="slip-detection.png"
+          width="1024"
+          height="1536"
+          loading="lazy"
+          alt="Slip detection with a pressure sensor overview diagram"
+        />
+      </figure>
+    </section>
 
     <!-- MY CONTRIBUTION -->
     <div class="grid grid-2">
 
       <div class="card">
+        <img
+          class="card-media card-media--contain"
+          src="hx711.png"
+          width="629"
+          height="629"
+          loading="lazy"
+          alt="HX711 load cell amplifier module"
+        />
         <h2>Pressure Sensor Integration (HX711)</h2>
 
         <ul>
@@ -91,7 +76,7 @@
         </ul>
       </div>
 
-      <div class="card">
+      <div class="card card--no-media">
         <h2>Slip Detection Logic</h2>
         <ul>
           <li>Detection of sudden pressure drops</li>
@@ -102,6 +87,14 @@
       </div>
 
       <div class="card">
+        <img
+          class="card-media card-media--contain"
+          src="sound-waves.svg"
+          width="1200"
+          height="450"
+          loading="lazy"
+          alt="Sound feedback represented as waves"
+        />
         <h2>Sound Feedback System</h2>
         <ul>
           <li>Distinct sound patterns for different events</li>
@@ -111,7 +104,7 @@
         </ul>
       </div>
 
-      <div class="card">
+      <div class="card card--no-media">
         <h2>Non-Blocking Audio Logic</h2>
         <ul>
           <li>No delay() usage in sound generation</li>
@@ -121,7 +114,7 @@
         </ul>
       </div>
 
-      <div class="card">
+      <div class="card card--no-media">
         <h2>Pressure Data Visualization</h2>
         <ul>
           <li>Real-time pressure graphs using Serial Plotter</li>
@@ -131,7 +124,7 @@
         </ul>
       </div>
 
-      <div class="card">
+      <div class="card card--no-media">
         <h2>Why a Separate Demo Project?</h2>
         <p>
           The full system uses many peripherals (ultrasonic sensors, LCD, RGB, GPS, vibration motors).
