@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" role="img" aria-label="Sound waves">
+  <defs>
+    <linearGradient id="wave" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="0.5" stop-color="#3b82f6" stop-opacity="0.95" />
+      <stop offset="1" stop-color="#3b82f6" stop-opacity="0.15" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+      <stop offset="0" stop-color="#3b82f6" stop-opacity="0.18" />
+      <stop offset="1" stop-color="#3b82f6" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="450" fill="url(#glow)" />
+
+  <g fill="none" stroke="url(#wave)" stroke-linecap="round">
+    <path
+      d="M0 225 C 120 150, 240 300, 360 225 S 600 300, 720 225 S 960 150, 1080 225 S 1200 300, 1200 225"
+      stroke-width="10"
+      opacity="0.95"
+    />
+    <path
+      d="M0 225 C 160 120, 320 330, 480 225 S 800 330, 960 225 S 1120 120, 1200 225"
+      stroke-width="6"
+      opacity="0.55"
+    />
+    <path
+      d="M0 225 C 80 190, 160 260, 240 225 S 400 260, 480 225 S 640 190, 720 225 S 880 260, 960 225 S 1120 190, 1200 225"
+      stroke-width="4"
+      opacity="0.35"
+    />
+  </g>
+
+  <g stroke="#3b82f6" stroke-opacity="0.16" stroke-width="1">
+    <path d="M150 60v330" />
+    <path d="M300 60v330" />
+    <path d="M450 60v330" />
+    <path d="M600 60v330" />
+    <path d="M750 60v330" />
+    <path d="M900 60v330" />
+    <path d="M1050 60v330" />
+  </g>
+</svg>

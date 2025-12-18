@@ -2,6 +2,10 @@
 :root {
   --bg-main: #0b1220;
   --bg-card: #121a2f;
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --border-soft: rgba(148, 163, 184, 0.18);
+  --radius-xl: 22px;
+  --blur: blur(10px);
   --accent: #3b82f6;        /* синий */
   --accent-soft: #1e40af;
   --text-main: #e5e7eb;
@@ -23,6 +27,8 @@ html {
 body {
   background: radial-gradient(circle at top, #111827, #020617);
   color: var(--text-main);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 
@@ -30,33 +36,47 @@ body {
 .container {
   max-width: 1150px;
   margin: auto;
-  padding: 48px 20px 60px;
+  padding: 64px 22px 84px;
+  display: grid;
+  gap: 34px;
 }
 
 .grid {
   display: grid;
-  gap: 22px;
+  gap: 28px;
 }
 
 .grid-2 {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
+/* ================== HERO ================== */
+.hero {
+  display: grid;
+  gap: 16px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 /* ================== TYPOGRAPHY ================== */
 h1 {
   font-size: clamp(36px, 5vw, 48px);
   letter-spacing: -0.7px;
-  margin-bottom: 12px;
+  margin: 0;
 }
 
 h2 {
   font-size: 22px;
-  margin-bottom: 12px;
+  margin: 0;
   letter-spacing: -0.3px;
 }
 
 p {
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--text-muted);
 }
 
@@ -65,12 +85,13 @@ ul {
 }
 
 li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: var(--text-muted);
+  line-height: 1.65;
 }
 
 .highlight {
-  color: var(--text-main);
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -96,11 +117,13 @@ li {
   background: var(--bg-card);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-xl);
-  padding: 26px;
+  padding: 32px;
   backdrop-filter: var(--blur);
   box-shadow:
     0 10px 30px rgba(0,0,0,0.08),
     inset 0 1px 0 rgba(255,255,255,0.4);
+  display: grid;
+  gap: 14px;
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease;
@@ -117,7 +140,13 @@ li {
     rgba(0,0,0,0.06),
     transparent 55%);
   opacity: 0;
+  z-index: 0;
   transition: opacity 0.35s ease;
+}
+
+.card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .card:hover::before {
@@ -140,13 +169,13 @@ li {
     var(--border-soft),
     transparent
   );
-  margin: 42px 0;
+  margin: 0;
 }
 
 /* ================== DEMO CODE ================== */
 code {
   display: inline-block;
-  background: rgba(0,0,0,0.04);
+  background: rgba(255,255,255,0.06);
   padding: 6px 10px;
   border-radius: 10px;
   font-size: 13px;
@@ -154,10 +183,9 @@ code {
 
 /* ================== FOOTER ================== */
 .footer {
-  margin-top: 70px;
   text-align: center;
   font-size: 12px;
-  color: #777;
+  color: var(--text-muted);
 }
 
 /* ================== ANIMATIONS ================== */
@@ -182,29 +210,37 @@ code {
   }
 }
 
-.icon {
-  width: 20px;
-  height: 20px;
-  color: var(--accent);
-  margin-right: 8px;
-  vertical-align: middle;
-}
-.graph {
-  margin-top: 12px;
-  background: #020617;
-  padding: 12px;
-  border-radius: 12px;
+/* ================== MEDIA ================== */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
 }
 
-.graph svg {
+.media {
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  background: rgba(2, 6, 23, 0.55);
+}
+
+.media img {
   width: 100%;
+  height: 220px;
+  display: block;
+  object-fit: contain;
+  background: #020617;
 }
 
-.graph-label {
+.media figcaption {
+  padding: 10px 12px 12px;
   font-size: 12px;
   color: var(--text-muted);
 }
-.highlight {
-  color: var(--accent);
-  font-weight: 600;
+
+@media (max-width: 600px) {
+  .media img {
+    height: 200px;
+  }
 }

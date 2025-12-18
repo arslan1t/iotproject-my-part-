@@ -10,37 +10,22 @@
 </head>
 
 <body>
-  <svg style="display:none">
-  <symbol id="icon-sound" viewBox="0 0 24 24">
-    <path d="M3 10v4h4l5 4V6L7 10H3z" fill="currentColor"/>
-    <path d="M16 7c1.5 1.5 1.5 8 0 10" stroke="currentColor" stroke-width="2" fill="none"/>
-  </symbol>
-
-  <symbol id="icon-pressure" viewBox="0 0 24 24">
-    <path d="M4 20h16M6 16l4-6 4 4 4-8" stroke="currentColor" stroke-width="2" fill="none"/>
-  </symbol>
-
-  <symbol id="icon-warning" viewBox="0 0 24 24">
-    <path d="M12 3l9 16H3z" stroke="currentColor" stroke-width="2" fill="none"/>
-    <circle cx="12" cy="16" r="1" fill="currentColor"/>
-    <path d="M12 9v4" stroke="currentColor" stroke-width="2"/>
-  </symbol>
-</svg>
-
   <div class="container">
 
     <!-- HERO -->
-    <div>
-      <span class="badge">Safety Module</span>
-      <span class="badge">HX711</span>
-      <span class="badge">Non-blocking audio</span>
+    <header class="hero">
+      <div class="badges">
+        <span class="badge">Safety Module</span>
+        <span class="badge">HX711</span>
+        <span class="badge">Non-blocking audio</span>
+      </div>
 
       <h1>Sound & Pressure Safety Module</h1>
       <p>
         This website presents <span class="highlight">my personal contribution</span> to the Smart Blind Shoes project:
         a pressure-based slip detection system with real-time sound feedback.
       </p>
-    </div>
+    </header>
 
     <div class="divider"></div>
 
@@ -54,14 +39,49 @@
       </p>
     </div>
 
+    <div class="card">
+      <h2>Module Images</h2>
+      <div class="media-grid">
+        <figure class="media">
+          <img
+            src="hx711.png"
+            width="629"
+            height="629"
+            loading="lazy"
+            alt="HX711 load cell amplifier module"
+          />
+          <figcaption>HX711 load cell amplifier</figcaption>
+        </figure>
+
+        <figure class="media">
+          <img
+            src="slip-detection.png"
+            width="1024"
+            height="1536"
+            loading="lazy"
+            alt="Slip detection logic diagram"
+          />
+          <figcaption>Slip detection logic</figcaption>
+        </figure>
+
+        <figure class="media">
+          <img
+            src="sound-waves.svg"
+            width="1200"
+            height="450"
+            loading="lazy"
+            alt="Sound feedback represented as waves"
+          />
+          <figcaption>Sound feedback patterns</figcaption>
+        </figure>
+      </div>
+    </div>
+
     <!-- MY CONTRIBUTION -->
     <div class="grid grid-2">
 
       <div class="card">
-        <h2>
-  <svg class="icon"><use href="#icon-pressure"/></svg>
-  Pressure Sensor Integration (HX711)
-</h2>
+        <h2>Pressure Sensor Integration (HX711)</h2>
 
         <ul>
           <li>Integrated HX711 load cell amplifier with foot pressure sensor</li>
@@ -139,7 +159,7 @@
 
       <p>
         <span class="highlight">Wokwi link:</span><br />
-        <code>https://wokwi.com/projects/PASTE-YOUR-ID</code>
+        <code>https://wokwi.com/projects/450291135017184257</code>
       </p>
     </div>
 
@@ -148,18 +168,6 @@
     </div>
 
   </div>
-  <div class="graph">
-  <svg viewBox="0 0 300 120">
-    <polyline
-      points="0,80 40,78 80,82 120,60 160,40 200,30 240,20 300,10"
-      fill="none"
-      stroke="#3b82f6"
-      stroke-width="3"/>
-    <line x1="0" y1="60" x2="300" y2="60"
-          stroke="#ef4444" stroke-dasharray="4"/>
-  </svg>
-  <span class="graph-label">Pressure threshold</span>
-</div>
 
 </body>
 </html>
