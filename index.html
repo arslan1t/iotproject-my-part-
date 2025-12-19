@@ -261,7 +261,7 @@
       <span class="badge">Voice Feedback</span>
     </div>
 
-    <h1>Sound & Pressure Safety Module</h1>
+    <h1>Sound &amp; Pressure Safety Module</h1>
     <p>
       This page presents <strong>my personal firmware contribution</strong> to the
       Smart Blind Shoes project.  
@@ -342,7 +342,7 @@ const bool DEBUG_MODE = true;
 // false → CSV for Serial Plotter
       </div>
       <div class="fw-explain">
-        <h4>🛠 Debug & Output Mode</h4>
+        <h4>🛠 Debug &amp; Output Mode</h4>
         <p>
           Allows switching between human-readable logs and
           plot-friendly CSV output without changing logic.
@@ -394,7 +394,7 @@ bool detectSlip(long pressure) {
 void playSlipAlertNonBlocking() {
   unsigned long now = millis();
 
-  if (slipBeepStage == 0 && now - lastSlipBeep > 600) {
+  if (slipBeepStage == 0 &amp;&amp; now - lastSlipBeep > 600) {
     tone(BUZZER_PIN, 2600, 60);
     slipBeepStage = 1;
     lastSlipBeep = now;
@@ -479,7 +479,9 @@ if (emergencyActive) {
       </ol>
 
       <p><strong>Wokwi:</strong><br>
-        <code>https://wokwi.com/projects/450291135017184257</code>
+        <a href="https://wokwi.com/projects/450291135017184257" target="_blank" rel="noopener noreferrer">
+          <code>https://wokwi.com/projects/450291135017184257</code>
+        </a>
       </p>
     </div>
     <div class="card" style="margin-top:20px;">
