@@ -225,7 +225,7 @@ body{
     <span class="badge">Voice Feedback</span>
     <span class="badge">Emergency</span>
   </div>
-  <h1>Sound & Pressure Safety Module</h1>
+  <h1>Sound &amp; Pressure Safety Module</h1>
   <p>
     Personal firmware module for Smart Blind Shoes.
     Focused on pressure-based slip detection, real-time audio feedback,
@@ -336,14 +336,21 @@ body{
   <div class="card">
     <div class="video-wrap">
       <!-- OPTION 1: MP4 -->
-      --
-      <video controls>
-        source src="demo.mp4" type="video/mp4"
+      <video controls playsinline>
+        <source src="demo.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
       </video>
       
-
-      
-      </iframe>
+      <!-- OPTION 2: YouTube -->
+      <!--
+      <iframe
+        src="https://www.youtube.com/embed/VIDEO_ID"
+        title="SlipGuard demo"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+      -->
     </div>
   </div>
 </section>
