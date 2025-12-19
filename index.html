@@ -2,165 +2,707 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SlipGuard — Sound & Pressure Safety Module</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SlipGuard — HX711 Safety Module (Personal Contribution)</title>
 
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root{
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --text: #141414;
+      --muted: #4b5563;
+      --muted2:#6b7280;
+      --blue: #2563eb;
+      --line: rgba(17,24,39,0.08);
+      --shadow: 0 12px 34px rgba(0,0,0,0.07);
+      --radius: 18px;
+    }
 
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a{ color: var(--blue); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .container{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 18px 56px;
+    }
+
+    /* Top bar */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom: 18px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--blue);
+      box-shadow: 0 0 0 6px rgba(37,99,235,0.12);
+    }
+    .nav{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+    .nav a{
+      font-size: 13px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--line);
+      padding: 7px 10px;
+      border-radius: 999px;
+    }
+    .nav a:hover{ border-color: rgba(37,99,235,0.35); color: #1f2937; text-decoration:none; }
+
+    /* Hero */
+    .hero{
+      background: linear-gradient(180deg, rgba(37,99,235,0.10), rgba(37,99,235,0.00));
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 6px);
+      padding: 26px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom: 14px;
+    }
+    .badge{
+      background: #e8efff;
+      color: var(--blue);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid rgba(37,99,235,0.18);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 18px;
+      align-items: center;
+    }
+    .hero h1{
+      margin: 0 0 10px;
+      font-size: clamp(26px, 3.2vw, 38px);
+      line-height: 1.15;
+      letter-spacing: -0.4px;
+    }
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 15.5px;
+      max-width: 62ch;
+    }
+    .highlight{ color: var(--blue); font-weight: 700; }
+
+    .hero-media{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    /* main picture 600x400 */
+    .hero-media img{
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 3 / 2; /* 600x400 */
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.10);
+    }
+
+    .hero-actions{
+      margin-top: 16px;
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.85);
+      color: #111827;
+    }
+    .btn-primary{
+      background: var(--blue);
+      color: white;
+      border-color: rgba(37,99,235,0.5);
+    }
+    .btn:hover{ text-decoration:none; filter: brightness(0.98); }
+
+    /* Sections */
+    .section{
+      margin-top: 26px;
+    }
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap: 12px;
+      margin: 22px 2px 12px;
+    }
+    .section-head h2{
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+    .section-head p{
+      margin: 0;
+      color: var(--muted2);
+      font-size: 13.5px;
+    }
+
+    .grid{
+      display:grid;
+      gap: 18px;
+    }
+    .grid-2{
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .grid-3{
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card{
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 22px;
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+    .card h3{
+      margin: 12px 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+    }
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+    .card ul{
+      margin: 10px 0 0 18px;
+      padding: 0;
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+    .card li{ margin: 6px 0; }
+
+    /* Media blocks */
+    .media{
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #f2f3f5;
+      padding: 10px;
+    }
+    /* HX711 629x629 */
+    .media-square{
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+    }
+    /* system overview wide 1936x1131 */
+    .media-wide{
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+    /* slip detection vertical 1024x1536 */
+    .media-vertical{
+      width: 100%;
+      max-height: 560px;
+      object-fit: contain;
+    }
+    /* sound waves svg */
+    .media-banner{
+      width: 100%;
+      max-height: 260px;
+      object-fit: contain;
+      opacity: 0.95;
+    }
+
+    /* Overview big block */
+    .overview{
+      padding: 24px;
+    }
+    .overview-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .overview-text{
+      max-width: 80ch;
+    }
+
+    /* “Steps” / demo list */
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .step{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 12px;
+      background: rgba(255,255,255,0.7);
+    }
+    .step .num{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 26px; height: 26px;
+      border-radius: 999px;
+      background: rgba(37,99,235,0.12);
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .step p{ margin: 0; color: var(--muted); font-size: 13.5px; }
+
+    /* Footer */
+    .footer{
+      margin-top: 26px;
+      color: var(--muted2);
+      font-size: 13px;
+      text-align:center;
+      padding: 18px 8px;
+    }
+    .divider{
+      height: 1px;
+      background: var(--line);
+      margin: 22px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .hero-media{ order: -1; }
+      .grid-3{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .steps{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px){
+      .grid-2, .grid-3{ grid-template-columns: 1fr; }
+      .steps{ grid-template-columns: 1fr; }
+      .hero{ padding: 18px; }
+      .card{ padding: 18px; }
+    }
+    /* ================= CODE EXPLAIN SECTION ================= */
+
+.code-section {
+  margin-top: 28px;
+}
+
+.code-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 18px;
+}
+
+.code-block {
+  background: #0f172a;
+  color: #e5e7eb;
+  border-radius: 16px;
+  padding: 18px;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 13.5px;
+  line-height: 1.6;
+  overflow-x: auto;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.code-block .comment { color: #7dd3fc; }
+.code-block .keyword { color: #c084fc; }
+.code-block .const { color: #facc15; }
+.code-block .func { color: #34d399; }
+
+.explain-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(17,24,39,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.explain-card h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.explain-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.explain-card ul {
+  margin: 10px 0 0 18px;
+  padding: 0;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.explain-card li {
+  margin: 6px 0;
+}
+
+@media (max-width: 900px) {
+  .code-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+  </style>
 </head>
 
 <body>
   <div class="container">
 
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>SlipGuard • Personal Contribution</span>
+      </div>
+      <nav class="nav">
+        <a href="#system">System</a>
+        <a href="#contribution">My Work</a>
+        <a href="#validation">Validation</a>
+        <a href="#demo">Demo</a>
+      </nav>
+    </div>
+
     <!-- HERO -->
-    <header class="hero">
+    <header class="hero" aria-label="Hero section">
       <div class="badges">
         <span class="badge">Safety Module</span>
         <span class="badge">HX711</span>
-        <span class="badge">Non-blocking audio</span>
+        <span class="badge">Slip Detection</span>
+        <span class="badge">Non-blocking Audio</span>
       </div>
 
-      <h1>Sound & Pressure Safety Module</h1>
-      <p>
-        This website presents <span class="highlight">my personal contribution</span> to the Smart Blind Shoes project:
-        a pressure-based slip detection system with real-time sound feedback.
-      </p>
+      <div class="hero-grid">
+        <div>
+          <h1>Sound & Pressure Safety Module</h1>
+          <p>
+            This page documents <span class="highlight">my personal module</span> inside the Smart Blind Shoes project:
+            HX711 pressure sensing, slip detection (pressure drop + unstable contact),
+            and <span class="highlight">real-time sound feedback</span> without using <code>delay()</code>.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#demo">Open Demo Steps</a>
+            <a class="btn" href="#contribution">See My Contribution</a>
+          </div>
+        </div>
+
+        <div class="hero-media">
+          <!-- main picture 600x400 -->
+          <img src="main-picture.png" alt="Main picture of SlipGuard module" />
+        </div>
+      </div>
     </header>
 
-    <div class="divider"></div>
-
-    <!-- OVERVIEW -->
-    <section class="card overview" id="system-overview">
-      <div class="overview-text">
+    <div class="section" id="system">
+      <div class="section-head">
         <h2>System Overview</h2>
-        <p>
-          The Smart Blind Shoes project aims to improve user safety through assistive feedback.
-          This page presents only my <span class="highlight">safety-critical module</span>:
-          HX711 pressure sensing + slip detection + non-blocking sound alerts.
-        </p>
-        <p>
-          Hardware: HX711 + foot pressure sensor, buzzer, and an emergency push button.
-          Output is visualized via Serial Plotter for clear validation during the demo.
-        </p>
-      </div>
-      <figure class="overview-media">
-        <img
-          src="slip-detection.png"
-          width="1024"
-          height="1536"
-          loading="lazy"
-          alt="Slip detection with a pressure sensor overview diagram"
-        />
-      </figure>
-    </section>
-
-    <!-- MY CONTRIBUTION -->
-    <div class="grid grid-2">
-
-      <div class="card">
-        <img
-          class="card-media card-media--contain"
-          src="hx711.png"
-          width="629"
-          height="629"
-          loading="lazy"
-          alt="HX711 load cell amplifier module"
-        />
-        <h2>Pressure Sensor Integration (HX711)</h2>
-
-        <ul>
-          <li>Integrated HX711 load cell amplifier with foot pressure sensor</li>
-          <li>Real-time pressure sampling and processing</li>
-          <li>Prepared for calibration and scaling in real hardware</li>
-          <li>Pressure used as an indicator of ground contact stability</li>
-        </ul>
+        <p>Clear architecture view before diving into details</p>
       </div>
 
-      <div class="card card--no-media">
-        <h2>Slip Detection Logic</h2>
-        <ul>
-          <li>Detection of sudden pressure drops</li>
-          <li>Minimum pressure threshold monitoring</li>
-          <li>Timeout-based loss of stable contact detection</li>
-          <li>Designed as a safety-triggering algorithm</li>
-        </ul>
-      </div>
+      <section class="card overview">
+        <div class="overview-grid">
+          <div class="overview-text">
+            <p>
+              The full Smart Blind Shoes system includes multiple peripherals (ultrasonic sensors, LCD, RGB, GPS, vibration motors).
+              In Wokwi / Arduino Uno, this creates pin and timing limitations.
+            </p>
+            <p>
+              I isolate the <span class="highlight">safety-critical pressure + audio module</span> to ensure:
+              stable HX711 sampling, clean Serial Plotter graphs, and responsive non-blocking sound alerts during the defense.
+            </p>
+          </div>
 
-      <div class="card">
-        <img
-          class="card-media card-media--contain"
-          src="sound-waves.svg"
-          width="1200"
-          height="450"
-          loading="lazy"
-          alt="Sound feedback represented as waves"
-        />
-        <h2>Sound Feedback System</h2>
-        <ul>
-          <li>Distinct sound patterns for different events</li>
-          <li>Slip alert: clear and recognizable audio signal</li>
-          <li>Emergency alarm with low-frequency rhythm</li>
-          <li>Audio feedback designed for instant user awareness</li>
-        </ul>
-      </div>
-
-      <div class="card card--no-media">
-        <h2>Non-Blocking Audio Logic</h2>
-        <ul>
-          <li>No delay() usage in sound generation</li>
-          <li>millis()-based scheduling</li>
-          <li>Ensures continuous sensor reading and system responsiveness</li>
-          <li>Supports simultaneous sensing and feedback</li>
-        </ul>
-      </div>
-
-      <div class="card card--no-media">
-        <h2>Pressure Data Visualization</h2>
-        <ul>
-          <li>Real-time pressure graphs using Serial Plotter</li>
-          <li>Threshold line visualization</li>
-          <li>Slip events shown as clear spikes</li>
-          <li>Used for validation and debugging</li>
-        </ul>
-      </div>
-
-      <div class="card card--no-media">
-        <h2>Why a Separate Demo Project?</h2>
-        <p>
-          The full system uses many peripherals (ultrasonic sensors, LCD, RGB, GPS, vibration motors).
-          In Wokwi and on Arduino Uno, this leads to <span class="highlight">pin and timing limitations</span>.
-        </p>
-        <p>
-          To ensure accurate HX711 sampling, clean graphs, and stable non-blocking audio behavior,
-          I demonstrate my module as a <span class="highlight">standalone project</span>.
-        </p>
-      </div>
-
+          <!-- system overview wide (1936x1131) -->
+          <img class="media media-wide" src="system-overview.png" alt="System overview diagram" />
+        </div>
+      </section>
     </div>
 
-    <!-- DEMO -->
-    <div class="divider"></div>
+    <div class="section" id="contribution">
+      <div class="section-head">
+        <h2>My Contribution</h2>
+        <p>What I implemented and why it matters for safety</p>
+      </div>
 
-    <div class="card">
-      <h2>Live Demonstration</h2>
-      <ul>
-        <li>Run Wokwi simulation</li>
-        <li>Open Serial Plotter</li>
-        <li>Show pressure signal, threshold, and slip spike</li>
-        <li>Trigger slip → observe audio alert</li>
-      </ul>
+      <div class="grid grid-2">
 
+        <!-- HX711 -->
+        <article class="card">
+          <img class="media media-square" src="hx711.png" alt="HX711 load cell amplifier module" />
+          <h3>Pressure Sensor Integration (HX711)</h3>
+          <ul>
+            <li>Integrated HX711 with foot pressure sensor (real-time sampling)</li>
+            <li>Prepared structure for calibration & scaling for real hardware</li>
+            <li>Pressure interpreted as ground-contact stability indicator</li>
+            <li>Sampling kept consistent to avoid noisy or misleading readings</li>
+          </ul>
+        </article>
+
+        <!-- Slip logic -->
+        <article class="card">
+          <h3>Slip Detection Logic</h3>
+          <p>
+            The detection is designed as a safety-triggering algorithm.
+            It focuses on recognizing patterns that represent loss of stable contact.
+          </p>
+          <ul>
+            <li>Sudden pressure drop detection (fast change)</li>
+            <li>Minimum pressure threshold monitoring</li>
+            <li>Timeout-based unstable contact / “no stable ground” state</li>
+            <li>Outputs a clear event that can trigger feedback immediately</li>
+          </ul>
+        </article>
+
+        <!-- Sound waves -->
+        <article class="card">
+          <img class="media media-banner" src="sound-waves.svg" alt="Sound feedback represented as waves" />
+          <h3>Sound Feedback System</h3>
+          <p>
+            Audio alerts are designed to be instantly recognizable.
+            Different events produce different patterns.
+          </p>
+          <ul>
+            <li>Slip alert: short, clear signal for immediate awareness</li>
+            <li>Emergency alarm: slower rhythm to stand out</li>
+            <li>Patterns designed for demo clarity + real-world usability</li>
+          </ul>
+        </article>
+
+        <!-- Non-blocking -->
+        <article class="card">
+          <h3>Non-Blocking Audio Logic</h3>
+          <p>
+            Sound generation is scheduled using <code>millis()</code> (no <code>delay()</code>),
+            so sensor reading never stops.
+          </p>
+          <ul>
+            <li>Continuous HX711 sampling while sound plays</li>
+            <li>Responsive button handling even during alerts</li>
+            <li>Stable behavior in simulation and real Arduino timing</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <div class="section" id="validation">
+      <div class="section-head">
+        <h2>Validation & Visualization</h2>
+        <p>How I prove the algorithm works during the demo</p>
+      </div>
+      <section class="section code-section" id="code">
+
+  <div class="section-head">
+    <h2>Code Implementation & Logic</h2>
+    <p>Key safety-critical parts of my firmware</p>
+  </div>
+
+  <!-- DEBUG MODE -->
+  <div class="code-grid">
+    <pre class="code-block"><code><span class="comment">// Debug Mode Toggle</span>
+<span class="keyword">const</span> <span class="keyword">bool</span> DEBUG_MODE = <span class="const">true</span>;
+
+<span class="comment">// true  → readable logs
+// false → CSV for Serial Plotter</span></code></pre>
+
+    <div class="explain-card">
+      <h4>Debug & Visualization Mode</h4>
       <p>
-        <span class="highlight">Wokwi link:</span><br />
-        <code>https://wokwi.com/projects/450291135017184257</code>
+        Allows switching between human-readable logs and
+        clean CSV output for Serial Plotter without changing logic.
       </p>
+    </div>
+  </div>
+
+  <!-- SLIP DETECTION -->
+  <div class="code-grid">
+    <pre class="code-block"><code><span class="comment">// Slip detection logic (HX711)</span>
+<span class="keyword">bool</span> <span class="func">detectSlip</span>(<span class="keyword">long</span> pressure) {
+  <span class="keyword">bool</span> slip = <span class="const">false</span>;
+
+  <span class="keyword">if</span> (pressure &lt; MIN_PRESSURE) slip = <span class="const">true</span>;
+  <span class="keyword">if</span> ((lastPressure - pressure) &gt; DROP_THRESHOLD) slip = <span class="const">true</span>;
+
+  <span class="keyword">if</span> (pressure &gt; MIN_PRESSURE)
+    lastStepTime = millis();
+  <span class="keyword">else if</span> (millis() - lastStepTime &gt; STEP_TIMEOUT)
+    slip = <span class="const">true</span>;
+
+  lastPressure = pressure;
+  <span class="keyword">return</span> slip;
+}</code></pre>
+
+    <div class="explain-card">
+      <h4>Slip Detection Algorithm</h4>
+      <p>
+        Slip is detected using pressure threshold, sudden drop
+        and timeout-based instability.
+      </p>
+    </div>
+  </div>
+
+  <!-- NON-BLOCKING AUDIO -->
+  <div class="code-grid">
+    <pre class="code-block"><code><span class="comment">// Non-blocking slip alert</span>
+<span class="keyword">void</span> <span class="func">playSlipAlertNonBlocking</span>() {
+  <span class="keyword">unsigned long</span> now = millis();
+  <span class="keyword">if</span> (now - lastSlipBeep &gt; <span class="const">600</span>) {
+    tone(BUZZER_PIN, <span class="const">2600</span>, <span class="const">60</span>);
+    lastSlipBeep = now;
+  }
+}</code></pre>
+
+    <div class="explain-card">
+      <h4>Non-Blocking Audio</h4>
+      <p>
+        Sound generation uses <code>millis()</code>,
+        so sensors continue working during alerts.
+      </p>
+    </div>
+  </div>
+
+  <!-- VOICE -->
+  <div class="code-grid">
+    <pre class="code-block"><code><span class="comment">// Voice feedback (simulation)</span>
+<span class="keyword">void</span> <span class="func">playVoiceMessage</span>(<span class="keyword">const char*</span> msg) {
+  <span class="keyword">if</span> (!VOICE_ENABLED) <span class="keyword">return</span>;
+  Serial.println(msg);
+}</code></pre>
+
+    <div class="explain-card">
+      <h4>Voice Feedback System</h4>
+      <p>
+        Voice announcements improve awareness and are simulated
+        in Wokwi via Serial output.
+      </p>
+    </div>
+  </div>
+
+</section>
+
+
+      <div class="grid grid-2">
+        <!-- Slip detection vertical -->
+        <article class="card" style="text-align:center;">
+          <img class="media media-vertical" src="slip-detection.png" alt="Slip detection pressure graph" />
+          <h3>Serial Plotter Output (Pressure vs Time)</h3>
+          <p>
+            During a slip event the pressure signal drops sharply below the threshold.
+            This creates a clean, visible signature for validation.
+          </p>
+        </article>
+
+        <!-- What to show -->
+        <article class="card">
+          <h3>What I Demonstrate</h3>
+          <ul>
+            <li>Normal walking: stable pressure above threshold</li>
+            <li>Slip simulation: sudden drop / instability detected</li>
+            <li>Immediate sound feedback without freezing the system</li>
+            <li>System stays responsive (no blocking delays)</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <h3>Why This Matters</h3>
+          <p>
+            For blind-assistive footwear, timing matters.
+            The system must detect instability quickly and warn the user immediately,
+            while still reading sensors continuously.
+          </p>
+        </article>
+      </div>
+    </div>
+
+    <div class="section" id="demo">
+      <div class="section-head">
+        <h2>Live Demonstration</h2>
+        <p>Short steps for a clean defense flow</p>
+      </div>
+
+      <section class="card">
+        <p style="margin:0 0 10px; color: var(--muted);">
+          Use these steps to show the full logic in under 1 minute.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <p>Open Wokwi simulation</p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <p>Start Serial Plotter</p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <p>Show threshold + stable pressure</p>
+          </div>
+          <div class="step">
+            <div class="num">4</div>
+            <p>Trigger slip → hear alert + see drop</p>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <p style="margin:0; color: var(--muted2); font-size: 13.5px;">
+          <span class="highlight">Wokwi link:</span>
+          <code style="display:block; margin-top:6px; background:#f3f4f6; padding:10px 12px; border-radius:12px; border:1px solid var(--line); overflow:auto;">
+https://wokwi.com/projects/450291135017184257
+          </code>
+        </p>
+      </section>
     </div>
 
     <div class="footer">
-      Defense website • Personal contribution only • HX711 Safety Module
+      Defense website • Personal contribution only • HX711 Safety Module • SlipGuard
     </div>
 
   </div>
-
 </body>
 </html>
